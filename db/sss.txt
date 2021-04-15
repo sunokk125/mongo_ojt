@@ -1,0 +1,21 @@
+var pool = require('../configs/db');
+
+async function GetCorpList(){
+    let conn, rows;
+    try{
+        conn = await pool.getConnection();
+        rows = await conn.query('SELECT * FROM corps');
+        console.log(rows);
+        
+        return rows;
+    }catch(err){
+        throw err;
+        console.log(err);
+    }finally{
+        if(conn) conn.end();
+    }
+}
+
+module.exports = {
+    getCorpList:GetCorpList
+};
